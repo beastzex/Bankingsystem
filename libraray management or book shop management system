@@ -1,0 +1,138 @@
+// Consider an example of book shop which sells books and video tapes. 
+// These two classes are inherited from base class called media. The media class has command data members 
+// such as title and publication. The book class has data members for storing number of pages in a book
+// and tape class has playing time in a tape. Each class will have member functions such as read () and show ().
+// In the base class, these members have to be defined as virtual functions.
+// Write a program to models the class hierarchy for book shop and processes objects of these
+// classes using pointers to base class. Write the rules of virtual functions.
+
+// Here's the C++ code that models the class hierarchy for the book shop:
+
+
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class Media {
+public:
+    string title, publication;
+
+    Media(string t, string p) : title(t), publication(p) {}
+
+    virtual void read() = 0;
+    virtual void show() {
+        cout << "Title: " << title << endl;
+        cout << "Publication: " << publication << endl;
+    }
+
+    virtual ~Media() {}
+};
+
+class Book : public Media {
+public:
+    int numberOfPages;
+
+    Book(string t, string p, int np) : Media(t, p), numberOfPages(np) {}
+
+    void read() override {
+        cout << "Reading book: " << title << endl;
+    }
+
+    void show() override {
+        Media::show();
+        cout << "Number of Pages: " << numberOfPages << endl;
+    }
+};
+
+class Tape : public Media {
+public:
+    float playingTime;
+
+    Tape(string t, string p, float pt) : Media(t, p), playingTime(pt) {}
+
+    void read() override {
+        cout << "Playing tape: " << title << endl;
+    }
+
+    void show() override {
+        Media::show();
+        cout << "Playing Time: " << playingTime << " minutes" << endl;
+    }
+};
+
+int main() {
+    int choice, numBooks, numTapes;
+    string title, publication;
+    int numberOfPages;
+    float playingTime;
+
+    cout << "Enter number of books: ";
+    cin >> numBooks;
+    Media* books[numBooks];
+
+    for (int i = 0; i < numBooks; i++) {
+        cout << "\nEnter book title: ";
+        cin.ignore();
+        getline(cin, title);
+        cout << "Enter book publication: ";
+        getline(cin, publication);
+        cout << "Enter number of pages: ";
+        cin >> numberOfPages;
+
+        books[i] = new Book(title, publication, numberOfPages);
+    }
+
+    cout << "\nEnter number of tapes: ";
+    cin >> numTapes;
+    Media* tapes[numTapes];
+
+    for (int i = 0; i < numTapes; i++) {
+        cout << "\nEnter tape title: ";
+        cin.ignore();
+        getline(cin, title);
+        cout << "Enter tape publication: ";
+        getline(cin, publication);
+        cout << "Enter playing time (in minutes): ";
+        cin >> playingTime;
+
+        tapes[i] = new Tape(title, publication, playingTime);
+    }
+
+    cout << "\nBook Information:" << endl;
+    for (int i = 0; i < numBooks; i++) {
+        books[i]->read();
+        books[i]->show();
+        cout << endl;
+    }
+
+    cout << "\nTape Information:" << endl;
+    for (int i = 0; i < numTapes; i++) {
+        tapes[i]->read();
+        tapes[i]->show();
+        cout << endl;
+    }
+
+    for (int i = 0; i < numBooks; i++) {
+        delete books[i];
+    }
+    for (int i = 0; i < numTapes; i++) {
+        delete tapes[i];
+    }
+
+   return 0;
+}
+
+
+// // Rules of Virtual Functions:
+
+// 1. Virtual functions must be members of a class.
+// 2. Virtual functions cannot be static members.
+// 3. They must be declared within the class declaration, not outside.
+// 4. A virtual function can be a pure virtual function by using the = 0 syntax.
+// 5. A class containing pure virtual functions is an abstract class and cannot be instantiated.
+// 6. Derived classes must implement all pure virtual functions.
+// 7. Virtual functions are typically accessed through a pointer or reference to the base class.
+// 8. The override keyword is used to specify that a function is overriding a base class function.
+// 9. Virtual functions are resolved at runtime (dynamic dispatch).
+// 10. Virtual destructors ensure proper cleanup of derived class objects when deleted through a base class pointer.
