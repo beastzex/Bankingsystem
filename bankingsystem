@@ -1,0 +1,94 @@
+
+#include<iostream>
+ using namespace std;
+  
+  class bank_account
+  {
+     public:
+     float Acc;
+     float balance,amt;
+     public:
+     void set(float x,float y,float acc);
+     void deposit();
+     void withdraw();
+     void interest();
+  };
+
+  void bank_account::set(float x, float y, float z)
+  {
+     balance=6789;
+     balance=x;
+     amt=y;
+     Acc=565678;
+     Acc=z;
+  }
+
+  void bank_account::deposit()
+  {
+     cout << "enter the amount"<<endl;
+     cin >> amt;
+     float Balance= balance + amt;
+     cout << "your new balance is: " << Balance << endl;
+  }
+
+  void bank_account::withdraw()
+  {
+     cout << "enter the amount to withdraw"<<endl;
+     cin >> amt;
+     if(balance>=amt)
+     {
+        float Balance=balance - amt;
+        cout << "your new balance is: " << Balance << endl;
+     }
+     else
+        cout << "Insufficient balance" << endl;
+  }
+
+  void bank_account::interest()
+  {
+     float interest_rate=0.05;
+      float Balance=balance + (balance * interest_rate);
+     cout << "your new balance after interest is: " << Balance << endl;
+  }
+
+  int main()
+  {
+     bank_account B;
+     float a,b,g,d;
+     int f;
+     cout<<"enter your account no. : "<<endl;
+     cin>>d;
+     if(d!=565678){
+          cout<<"you are not allowed to authenticate "<<endl;
+     } 
+     else 
+     {
+     cout<<"proceeding......" << endl;
+     cout<<"there are three options available : "<<endl;
+     cout<<"type 2 if you want to Deposit amount."<<endl;
+     cout<<"type 3 to Withdraw amount."<<endl;
+     cout<<"type 4 to Calculate interest."<<endl;
+     cout<<"Enter your choice: "<<endl;
+     cin>>f;
+     if(f<2 || f>4){
+          cout<<"invalid choice "<<endl;
+     } else{
+          if(f==2){
+               cout<<"enter the amount you want to deposit"<<endl;
+               
+               B.set(b,a,g);
+               B.deposit();
+          } else if(f==3){
+               cout<<"enter the amount you want to withdraw"<<endl;
+               
+               B.set(b,a,g);
+               B.withdraw();
+          } else if(f==4){
+               cout<<"calculating interest......."<<endl;
+               B.set(b,a,g);
+               B.interest();
+          }
+          }
+     }
+     return 0;
+  }
